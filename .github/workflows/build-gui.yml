@@ -135,33 +135,3 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: Wario-Land-ISO-Patcher-${{ matrix.target }}.*
-
-  patch-files:
-    needs: check
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Zip Gecko codes
-        run: zip -qr Wario-Land-Patch-Gecko-Codes.zip codes
-
-      - name: Zip Riivolution patches
-        run: zip -qr Wario-Land-Patch-Riivolution.zip riivolution
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Wario-Land-Patch-Gecko-Codes
-          path: Wario-Land-Patch-Gecko-Codes.zip
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Wario-Land-Patch-Riivolution
-          path: Wario-Land-Patch-Riivolution.zip
-
-      - name: Attach to release
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            Wario-Land-Patch-Gecko-Codes.zip
-            Wario-Land-Patch-Riivolution.zip
